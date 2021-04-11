@@ -12,7 +12,7 @@ module.exports = {
   },
   plugins: ["jest", "prettier", "@typescript-eslint"],
   rules: {
-    "no-console": "error",
+    "no-console": "warn",
     "no-undef": "off",
     "jest/no-jasmine-globals": "off",
     "prettier/prettier": "error",
