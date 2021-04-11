@@ -20,8 +20,6 @@ const Text: React.FC<TextProps> = ({
 }: TextProps) => {
   const className = classnames("Text", weight, size);
 
-  console.log({ className });
-
   return <p className={className}>{children}</p>;
 };
 
