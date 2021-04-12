@@ -1,3 +1,3 @@
 // $Components
-export { Toolbar, ToolbarProps } from "./Toolbar";
+export { Menu, MenuProps, MenuItem, MenuItemProps, Toolbar } from "./Toolbar";
 export { Text, TextProps } from "./Text";

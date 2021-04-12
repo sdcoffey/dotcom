@@ -1,7 +1,7 @@
 import React from "react";
-import classnames from "classnames";
+import styled from "styled-components";
 
-import styles from "./ToolbarButton.module.scss";
+import { Mixins } from "../../style";
 
 interface ToolbarButtonProps {
   children: React.ReactNode;
@@ -18,15 +18,36 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = (
     onSelect(event);
   };
 
-  const classes = classnames(styles.toolbarbutton, {
-    [styles.active]: active,
-  });
-
   return (
-    <button onMouseDown={onMouseDown} className={classes}>
+    <Button active={active} onMouseDown={onMouseDown}>
       {children}
-    </button>
+    </Button>
   );
 };
+
+type StyleProps = {
+  active: boolean;
+};
+
+const Button = styled.button<StyleProps>`
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  background-color: transparent;
+
+  &:active {
+    ${Mixins.ActiveBackground}
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  ${({ active }: StyleProps): Css | false => active && Mixins.ActiveBackground}
+`;
 
 export default ToolbarButton;
