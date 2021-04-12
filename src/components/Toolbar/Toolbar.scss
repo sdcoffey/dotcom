@@ -1,18 +1,19 @@
-.Toolbar {
+.toolbar {
   background-image: url(../../assets/button_left.png), url(../../assets/button_right.png), url(../../assets/button_middle.png);
   background-position: left, right, center;
   background-repeat: no-repeat, no-repeat, repeat-x;
   background-size: contain;
   border: none;
   outline: none;
-  padding: 8px 8px;
+  padding: 0 10px;
+}
 
+.toolbar-group {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+}
 
-  & > * {
-    margin-right: 10px
-  }
+.mac-logo {
+  transform: translateY(-1px);
 }

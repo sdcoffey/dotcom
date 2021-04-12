@@ -1,0 +1,23 @@
+@import "../../style/global";
+
+.ToolbarButton {
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  background-color: transparent;
+
+  &:active {
+    background-color: $g_blue;
+    color: white;
+    outline: 0;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+

@@ -1,20 +1,29 @@
 import React from "react";
 
-import "./Toolbar.scss";
+import ToolbarButton from "./ToolbarButton";
+import macLogo from "../../assets/mac-logo.png";
 
 import { Text } from "../Text";
 
-export interface ToolbarProps {
-  children: React.ReactChildren;
-}
+import "./Toolbar.scss";
 
-const Toolbar: React.FC<ToolbarProps> = (props: ToolbarProps) => {
-  const { children } = props;
+const Toolbar: React.FC<Record<string, never>> = () => {
   return (
-    <div className="Toolbar">
-      <Text>File</Text>
-      <Text>Edit</Text>
-      <Text>View</Text>
+    <div className="toolbar">
+      <div className="toolbar-group">
+        <ToolbarButton>
+          <img className="mac-logo" height={15} src={macLogo} />
+        </ToolbarButton>
+        <ToolbarButton>
+          <Text>File</Text>
+        </ToolbarButton>
+        <ToolbarButton>
+          <Text>Edit</Text>
+        </ToolbarButton>
+        <ToolbarButton>
+          <Text>View</Text>
+        </ToolbarButton>
+      </div>
     </div>
   );
 };
