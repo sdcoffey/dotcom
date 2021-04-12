@@ -1,6 +1,12 @@
 @import "../../style/global";
 
-.ToolbarButton {
+@mixin active {
+  background-color: $g_blue;
+  color: white;
+  outline: 0;
+}
+
+.toolbarbutton {
   padding: 8px 8px;
   display: flex;
   flex-direction: row;
@@ -11,9 +17,7 @@
   background-color: transparent;
 
   &:active {
-    background-color: $g_blue;
-    color: white;
-    outline: 0;
+    @include active;
   }
 
   &:focus {
@@ -21,3 +25,6 @@
   }
 }
 
+.active {
+  @include active;
+}

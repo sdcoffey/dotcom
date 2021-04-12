@@ -6,14 +6,17 @@
   border: none;
   outline: none;
   padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.toolbar-group {
+.toolbargroup {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.mac-logo {
+.maclogo {
   transform: translateY(-1px);
 }
