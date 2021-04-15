@@ -1,11 +1,14 @@
 import React from "react";
+import styled from "styled-components";
 
 import "./{{pascalCase name }}.scss";
 
 export interface {{ propName name }} {}
 
 const {{ pascalCase name }}: React.FC<{{ propName name }}> = (props: {{ propName name }}) => {
-  return <div className="{{ pascalCase name }}"></div>;
+  return <Container className="{{ pascalCase name }}"></Container>;
 };
+
+const Container = styled.div``;
 
 export default {{ pascalCase name }};

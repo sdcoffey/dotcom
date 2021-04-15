@@ -30,12 +30,13 @@ const Menu: React.FC<MenuProps> = (props: MenuProps): JSX.Element => {
 };
 
 const Container = styled.div`
-  background-color: ${Color.Gray};
+  background-color: ${Color.LightSilver};
   outline: solid 1px black;
+  min-width: 200px;
 `;
 
 const SectionStyle = styled.div`
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px ${Color.RiverLady};
 `;
 
 export default Menu;
