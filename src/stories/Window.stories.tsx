@@ -1,13 +1,40 @@
 import React from "react";
 
-import { Text, Window } from "../components";
+import { Story } from "@storybook/react";
 
-export default { title: "Components/Window", component: Window };
+import { Text, Window, WindowProps } from "../components";
 
-export const Basic = (): JSX.Element => {
-  return (
-    <Window>
-      <Text>Test</Text>
-    </Window>
-  );
+const Template: Story<WindowProps> = (props: WindowProps): JSX.Element => {
+  return <Window {...props} />;
+};
+
+export const Focused = Template.bind({});
+Focused.args = {
+  children: <Text>Test</Text>,
+  name: "Window",
+  focused: true,
+  onFocus: () => {},
+  onBlur: () => {},
+  onClose: () => {},
+};
+
+export const Blurred = Template.bind({});
+Blurred.args = {
+  children: <Text>Test</Text>,
+  name: "Window",
+  focused: false,
+  onFocus: () => {},
+  onBlur: () => {},
+  onClose: () => {},
+};
+
+export default {
+  title: "Components/Window",
+  component: Window,
+  argTypes: {
+    children: {
+      control: false,
+    },
+    focused: { control: false },
+  },
 };

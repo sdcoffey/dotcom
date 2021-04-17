@@ -19,6 +19,11 @@ import {
 
 export interface WindowProps {
   children: React.ReactNode;
+  name: string;
+  focused: boolean;
+  onFocus: () => void;
+  onBlur: () => void;
+  onClose?: () => void;
 }
 
 type Size = {
@@ -32,10 +37,10 @@ type Position = {
 };
 
 const Window: React.FC<WindowProps> = (props: WindowProps) => {
-  const { children } = props;
+  const { children, focused, onClose, name } = props;
   const [size, setSize] = React.useState<Size>({
-    height: "100px",
-    width: "160px",
+    height: "200px",
+    width: "300px",
   });
   const [position, setPosition] = React.useState<Position>({ x: 0, y: 0 });
 
@@ -61,27 +66,44 @@ const Window: React.FC<WindowProps> = (props: WindowProps) => {
       position={position}
       size={size}
       onResizeStop={onResizeStop}
+      dragHandleClassName="window-drag-handle"
+      minHeight={"100px"}
+      minWidth={"160px"}
+      enableResizing={{
+        bottomLeft: true,
+        bottomRight: true,
+        topLeft: true,
+        topRight: true,
+      }}
     >
-      <Container>
-        <BorderTopLeft />
-        <Header />
-        <BorderTopRight />
-        <BorderLeft />
+      <Container focused={focused}>
+        <BorderTopLeft focused={focused} />
+        <Header
+          focused={focused}
+          onClose={(): void => {
+            onClose?.();
+          }}
+          text={name}
+        />
+        <BorderTopRight focused={focused} />
+        <BorderLeft focused={focused} />
         <Children>{children}</Children>
 
-        <BorderRight />
-        <BorderBottomLeft />
-        <BorderBottom />
-        <BorderBottomRight />
+        <BorderRight focused={focused} />
+        <BorderBottomLeft focused={focused} />
+        <BorderBottom focused={focused} />
+        <BorderBottomRight focused={focused} />
       </Container>
     </Rnd>
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ focused: boolean }>`
   display: grid;
   height: 100%;
-  box-shadow: 1px 1px 0px 0px ${Color.Black};
+
+  ${(props): string | false =>
+    props.focused && `box-shadow: 2px 2px 0px 0px ${Color.Black};`}
 
   grid-template-rows: ${TopHeight}px auto ${BorderWidth}px;
   grid-template-columns: ${BorderWidth}px auto ${BorderWidth}px;
