@@ -63,7 +63,6 @@ const Toolbar = ({ config }: ToolBarProps): JSX.Element => {
       menu: MenuItemProps[][];
     }): JSX.Element => {
       const { component, index, name, menu } = props;
-      console.log("render", index);
       return (
         <div>
           <ToolbarButton

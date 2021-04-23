@@ -29,11 +29,6 @@ module.exports = (plop) => {
       },
       {
         type: "add",
-        path: "src/components/{{pascalCase name}}/{{pascalCase name}}.scss",
-        templateFile: "templates/cssmodule.hbs",
-      },
-      {
-        type: "add",
         path: "src/components/{{pascalCase name}}/index.ts",
         templateFile: "templates/componentindex.hbs",
       },
@@ -46,7 +41,7 @@ module.exports = (plop) => {
         type: "append",
         path: "src/components/index.ts",
         pattern: "// $Components",
-        template: `export { {{ pascalCase name }}, {{ propName name }} } from "./{{ pascalCase name }}";`
+        template: `export { {{ pascalCase name }}, {{ propName name }} } from "./{{ pascalCase name }}";`,
       },
     ],
   });

@@ -9,7 +9,6 @@ import {
 } from "./components";
 
 const OSNine = (): JSX.Element => {
-  console.log("OsNine render");
   const makeWindow = useMakeWindow();
 
   const newWindow = (): void => {
