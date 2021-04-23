@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-import buttonLeft from "../../assets/button_left.png";
-import buttonRight from "../../assets/button_right.png";
-import buttonMiddle from "../../assets/button_middle.png";
 import Menu from "./Menu";
 import macLogo from "../../assets/mac-logo.png";
 import ToolbarButton from "./ToolbarButton";
 
+import { Color } from "../../style";
+import { MenuItemProps } from "./MenuItem";
 import { Text } from "../Text";
 import { Time } from "../../utils";
 
-const Toolbar: React.FC<Record<string, never>> = () => {
+interface ToolBarProps {
+  config: ToolbarConfig;
+}
+
+const Toolbar = ({ config }: ToolBarProps): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = React.useState<number>();
   const [time, setTime] = React.useState(Time.getTime);
 
@@ -52,48 +55,60 @@ const Toolbar: React.FC<Record<string, never>> = () => {
     };
   });
 
+  const MenuProxy = React.memo(
+    (props: {
+      index: number;
+      name?: string;
+      component?: React.ReactNode;
+      menu: MenuItemProps[][];
+    }): JSX.Element => {
+      const { component, index, name, menu } = props;
+      console.log("render", index);
+      return (
+        <div>
+          <ToolbarButton
+            onSelect={onSelect(index)}
+            active={selectedIndex === index}
+          >
+            {name && <Text size="small">{name}</Text>}
+            {component && component}
+          </ToolbarButton>
+          <MenuWrapper active={selectedIndex === index}>
+            <Menu menuItems={menu} />
+          </MenuWrapper>
+        </div>
+      );
+    }
+  );
+
+  const macMenu = [
+    [
+      {
+        text: "About this Website",
+        keyboardShortcut: "",
+        onClick: (): void => console.log("About"),
+      },
+    ],
+  ];
+
   return (
-    <Container>
+    <Container className="toolbar-area">
       <ToolbarGroup className="toolbargroup">
-        <div>
-          <ToolbarButton onSelect={onSelect(0)} active={selectedIndex === 0}>
-            <MacLogo height={15} src={macLogo} />
-          </ToolbarButton>
-          <MenuWrapper active={selectedIndex === 0}>
-            <Menu
-              menuItems={[
-                [{ text: "About this Website", keyboardShortcut: "" }],
-              ]}
-            />
-          </MenuWrapper>
-        </div>
-        <div>
-          <ToolbarButton onSelect={onSelect(1)} active={selectedIndex === 1}>
-            <Text>File</Text>
-          </ToolbarButton>
-          <MenuWrapper active={selectedIndex === 1}>
-            <Menu
-              menuItems={[
-                [{ text: "About this Website", keyboardShortcut: "" }],
-              ]}
-            />
-          </MenuWrapper>
-        </div>
-        <div>
-          <ToolbarButton onSelect={onSelect(2)} active={selectedIndex === 2}>
-            <Text>Edit</Text>
-          </ToolbarButton>
-          <MenuWrapper active={selectedIndex === 2}>
-            <Menu
-              menuItems={[
-                [{ text: "About this Website", keyboardShortcut: "" }],
-              ]}
-            />
-          </MenuWrapper>
-        </div>
-        <ToolbarButton onSelect={onSelect(3)} active={selectedIndex === 3}>
-          <Text>View</Text>
-        </ToolbarButton>
+        <MenuProxy
+          key="mac-logo"
+          index={0}
+          component={<MacLogo height={15} src={macLogo} />}
+          menu={macMenu}
+        />
+        {config.map((config, index) => (
+          <MenuProxy
+            key={index + 1}
+            index={index + 1}
+            name={config.name}
+            component={config.component}
+            menu={config.items}
+          />
+        ))}
       </ToolbarGroup>
       <ToolbarGroup>
         <Text size="small">{time}</Text>
@@ -103,17 +118,24 @@ const Toolbar: React.FC<Record<string, never>> = () => {
 };
 
 const Container = styled.div`
-  background-image: url(${buttonLeft}), url(${buttonRight}),
-    url(${buttonMiddle});
-  background-position: left, right, center;
-  background-repeat: no-repeat, no-repeat, repeat-x;
-  background-size: contain;
-  border: none;
-  outline: none;
+  background-color: ${Color.LightSilver};
   padding: 0 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  border-bottom: 1px solid black;
+
+  :after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    height: 1px;
+    background-color: ${Color.White};
+  }
 `;
 
 const ToolbarGroup = styled.div`
@@ -134,7 +156,7 @@ type MenuWrapperProps = {
 const MenuWrapper = styled.div<MenuWrapperProps>`
   position: absolute;
   display: ${(props): string => (props.active ? "block" : "none")};
-  z-index: 1;
+  z-index: 2;
 `;
 
-export default Toolbar;
+export default React.memo(Toolbar);

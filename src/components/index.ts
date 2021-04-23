@@ -1,4 +1,13 @@
 // $Components
-export { Menu, MenuProps, MenuItem, MenuItemProps, Toolbar } from "./Toolbar";
-export { Text, TextProps } from "./Text";
-export { Window, WindowProps } from "./Window";
+export { ConnectedToolbar, Menu, MenuItem, Toolbar } from "./Toolbar";
+export type { MenuProps, MenuItemProps } from "./Toolbar";
+export { Text } from "./Text";
+export type { TextProps } from "./Text";
+export {
+  Window,
+  WindowProvider,
+  useMakeWindow,
+  useWindowContext,
+  useWindows,
+} from "./Window";
+export type { WindowProps } from "./Window";

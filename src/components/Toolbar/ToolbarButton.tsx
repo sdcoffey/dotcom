@@ -29,15 +29,17 @@ type StyleProps = {
   active: boolean;
 };
 
-const Button = styled.button<StyleProps>`
+const Button = styled.div<StyleProps>`
   padding: 8px 8px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 100%;
 
   border: none;
   background-color: transparent;
+  cursor: default;
 
   &:active {
     ${Mixins.ActiveBackground}
@@ -47,7 +49,8 @@ const Button = styled.button<StyleProps>`
     outline: 0;
   }
 
-  ${({ active }: StyleProps): Css | false => active && Mixins.ActiveBackground}
+  ${({ active }: StyleProps): Css | null =>
+    (active && Mixins.ActiveBackground) || null}
 `;
 
 export default ToolbarButton;

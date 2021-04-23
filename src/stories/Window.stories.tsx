@@ -1,40 +1,45 @@
 import React from "react";
 
-import { Story } from "@storybook/react";
+import {
+  Text,
+  Window,
+  WindowProvider,
+  useMakeWindow,
+  useWindows,
+} from "../components";
 
-import { Text, Window, WindowProps } from "../components";
+const SimpleApp = (): JSX.Element => <Text>"Test"</Text>;
 
-const Template: Story<WindowProps> = (props: WindowProps): JSX.Element => {
-  return <Window {...props} />;
+SimpleApp.toolbarConfig = [] as ToolbarConfig;
+
+const Provider = ({ children }: { children: React.ReactNode }): JSX.Element => {
+  return <WindowProvider>{children}</WindowProvider>;
 };
 
-export const Focused = Template.bind({});
-Focused.args = {
-  children: <Text>Test</Text>,
-  name: "Window",
-  focused: true,
-  onFocus: () => {},
-  onBlur: () => {},
-  onClose: () => {},
+const Template = (): JSX.Element => {
+  const makeWindow = useMakeWindow();
+  const newWindow = (): void => {
+    makeWindow(SimpleApp, "Window 1");
+  };
+
+  const windows = useWindows();
+  return (
+    <div>
+      {windows}
+      <button onClick={newWindow}>New Window</button>
+    </div>
+  );
 };
 
-export const Blurred = Template.bind({});
-Blurred.args = {
-  children: <Text>Test</Text>,
-  name: "Window",
-  focused: false,
-  onFocus: () => {},
-  onBlur: () => {},
-  onClose: () => {},
+export const WindowStory = (): JSX.Element => {
+  return (
+    <Provider>
+      <Template />
+    </Provider>
+  );
 };
 
 export default {
   title: "Components/Window",
   component: Window,
-  argTypes: {
-    children: {
-      control: false,
-    },
-    focused: { control: false },
-  },
 };

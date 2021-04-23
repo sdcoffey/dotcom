@@ -1,27 +1,31 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.scss";
-import "./style";
+import styled from "styled-components";
+
+import { FontFace } from "./style";
+
+import background from "./assets/bg.jpeg";
+import OSNine from "./OSNine";
+
+import { WindowProvider } from "./components";
 
 function App(): JSX.Element {
+  console.log("APP render");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <FontFace />
+      <WindowProvider>
+        <OSNine />
+      </WindowProvider>
+    </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background-image: url(${background});
+
+  overflow: hidden;
+`;
 
 export default App;

@@ -8,15 +8,22 @@ export interface MenuItemProps {
   text: string;
   keyboardShortcut: string;
   disabled?: boolean;
+  onClick: () => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = (
   props: MenuItemProps
 ): JSX.Element => {
-  const { text, keyboardShortcut, disabled } = props;
+  const { text, keyboardShortcut, disabled, onClick } = props;
+
+  const handleClick = (): void => {
+    if (!disabled) {
+      onClick();
+    }
+  };
 
   return (
-    <Container disabled={disabled}>
+    <Container disabled={disabled} onClick={handleClick}>
       <Text size="small">{text}</Text>
       <Text size="small">{keyboardShortcut}</Text>
     </Container>
@@ -42,6 +49,8 @@ const Container = styled.div<ContainerProps>`
   flex-direction: row;
   justify-content: space-between;
   padding: 8px;
+
+  cursor: pointer;
 
   ${({ disabled }: ContainerProps): Css | false => !disabled && ActiveStyle}
   ${({ disabled }: ContainerProps): Css | false => !!disabled && DisabledStyle}

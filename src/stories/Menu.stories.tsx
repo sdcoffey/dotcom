@@ -4,14 +4,28 @@ import { Story } from "@storybook/react";
 
 import { Menu, MenuProps, MenuItemProps } from "../components";
 
+const handleClick = (): void => {
+  console.log("click!");
+};
+
 const items: MenuItemProps[][] = [
   [
-    { text: "New Folder...", keyboardShortcut: "N" },
-    { text: "New File...", keyboardShortcut: "NF", disabled: true },
+    { text: "New Folder...", keyboardShortcut: "N", onClick: handleClick },
+    {
+      text: "New File...",
+      keyboardShortcut: "NF",
+      disabled: true,
+      onClick: handleClick,
+    },
   ],
   [
-    { text: "New Folder...", keyboardShortcut: "N" },
-    { text: "New File...", keyboardShortcut: "NF", disabled: true },
+    { text: "New Folder...", keyboardShortcut: "N", onClick: handleClick },
+    {
+      text: "New File...",
+      keyboardShortcut: "NF",
+      disabled: true,
+      onClick: handleClick,
+    },
   ],
 ];
 

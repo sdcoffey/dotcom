@@ -20,10 +20,10 @@ import {
 export interface WindowProps {
   children: React.ReactNode;
   name: string;
+  windowId: string;
   focused: boolean;
   onFocus: () => void;
-  onBlur: () => void;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 type Size = {
@@ -36,8 +36,11 @@ type Position = {
   y: number;
 };
 
-const Window: React.FC<WindowProps> = (props: WindowProps) => {
-  const { children, focused, onClose, name } = props;
+const Window = (
+  props: WindowProps,
+  ref: React.Ref<HTMLDivElement>
+): JSX.Element => {
+  const { children, name, windowId, focused, onFocus, onClose } = props;
   const [size, setSize] = React.useState<Size>({
     height: "200px",
     width: "300px",
@@ -60,6 +63,10 @@ const Window: React.FC<WindowProps> = (props: WindowProps) => {
     setPosition(pos);
   };
 
+  const onResizeStart = (): void => {
+    onFocus();
+  };
+
   return (
     <Rnd
       onDragStop={onDragStop}
@@ -67,8 +74,10 @@ const Window: React.FC<WindowProps> = (props: WindowProps) => {
       size={size}
       onResizeStop={onResizeStop}
       dragHandleClassName="window-drag-handle"
+      onResizeStart={onResizeStart}
       minHeight={"100px"}
       minWidth={"160px"}
+      bounds=".window-area"
       enableResizing={{
         bottomLeft: true,
         bottomRight: true,
@@ -76,12 +85,12 @@ const Window: React.FC<WindowProps> = (props: WindowProps) => {
         topRight: true,
       }}
     >
-      <Container focused={focused}>
+      <Container focused={focused} className={windowId} ref={ref}>
         <BorderTopLeft focused={focused} />
         <Header
           focused={focused}
           onClose={(): void => {
-            onClose?.();
+            onClose();
           }}
           text={name}
         />
@@ -116,6 +125,7 @@ const Container = styled.div<{ focused: boolean }>`
 
 const Children = styled.div`
   grid-area: children;
+  background-color: ${Color.White};
 `;
 
-export default Window;
+export default React.forwardRef<HTMLDivElement, WindowProps>(Window);

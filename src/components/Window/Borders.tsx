@@ -255,6 +255,7 @@ export const BorderTopRight = styled.div<BorderProps>`
 const HeaderContainer = styled.div<BorderProps>`
   grid-area: header;
 
+  cursor: default;
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 15px auto fit-content(100px) auto;
@@ -344,17 +345,25 @@ const Button = styled.button<BorderProps>`
   }
 `;
 
+const TextProxy = styled(Text)`
+  opacity: 1;
+
+  ${blur(css`
+    opacity: 0.5;
+  `)}
+`;
+
 export const Header: React.FC<HeaderProps> = ({
   text,
   onClose,
   focused,
 }: HeaderProps): JSX.Element => (
-  <HeaderContainer focused={focused}>
+  <HeaderContainer focused={focused} className="window-drag-handle">
     <Button focused={focused} onClick={onClose} />
-    <Stripes focused={focused} className="window-drag-handle" />
-    <Text className="window-drag-handle" size="small">
+    <Stripes focused={focused} />
+    <TextProxy focused={focused} size="small">
       {text}
-    </Text>
-    <Stripes focused={focused} className="window-drag-handle" />
+    </TextProxy>
+    <Stripes focused={focused} />
   </HeaderContainer>
 );
