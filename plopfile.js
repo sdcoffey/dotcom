@@ -41,7 +41,8 @@ module.exports = (plop) => {
         type: "append",
         path: "src/components/index.ts",
         pattern: "// $Components",
-        template: `export { {{ pascalCase name }}, {{ propName name }} } from "./{{ pascalCase name }}";`,
+        template: `export { {{ pascalCase name }} } from "./{{ pascalCase name }}";
+export type { {{ propName name }} } from "./{{ pascalCase name }}";`,
       },
     ],
   });
