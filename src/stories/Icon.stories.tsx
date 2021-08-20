@@ -5,5 +5,9 @@ import { Icon } from "../components";
 export default { title: "Components/Icon", component: Icon };
 
 export const Basic = (): JSX.Element => {
-  return <Icon />;
+  return (
+    <div>
+      <Icon name="test" />
+    </div>
+  );
 };

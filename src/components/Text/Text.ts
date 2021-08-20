@@ -14,7 +14,7 @@ const Text = styled.p<TextProps>`
   margin: 0;
   font-size: 1em;
   line-height: 1em;
-  transform: translateY(2px);
+  display: inline-block;
 
   font-family: ${(props: TextProps): string => weight(props.weight)};
   font-size: ${(props: TextProps): number => size(props.size)}em;
