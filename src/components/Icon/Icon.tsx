@@ -12,7 +12,7 @@ export interface IconProps {
 const Icon: React.FC<IconProps> = (props: IconProps) => {
   return (
     <Container>
-      <img src={props.img} />
+      <Image src={props.img} />
       <TextWrapper>
         <Text size="small">{props.name}</Text>
       </TextWrapper>
@@ -29,6 +29,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: auto;
+  align-items: center;
+  width: fit-content;
+`;
+
+const Image = styled.img`
+  height: 52px;
+  width: 52px;
 `;
 
 export default Icon;

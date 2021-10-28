@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import TextIcon from "./assets/text-icon.png";
+
 import {
   ConnectedToolbar,
+  Icon,
   useMakeWindow,
   useWindows,
   Text,
@@ -21,6 +24,7 @@ const OSNine = (): JSX.Element => {
       <WindowArea className="window-area" id="window-area">
         {useWindows()}
         <Button onClick={newWindow}>New Window</Button>
+        <Icon img={TextIcon} name={"Resume"} />
       </WindowArea>
     </Container>
   );

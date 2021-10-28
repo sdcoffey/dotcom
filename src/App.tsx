@@ -9,7 +9,6 @@ import OSNine from "./OSNine";
 import { WindowProvider } from "./components";
 
 function App(): JSX.Element {
-  console.log("APP render");
   return (
     <AppContainer>
       <FontFace />
